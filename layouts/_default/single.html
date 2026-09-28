@@ -1,0 +1,14 @@
+{{ define "main" }}
+<article>
+<h1>{{ .Title }}</h1>
+<div class="card"><p class="big" id="poem">{{ replace ((trim .RawContent "\n\r ") | htmlEscape) "\n" "<br>" | safeHTML }}</p>
+<button onclick="navigator.clipboard.writeText(document.getElementById('poem').innerText);this.textContent='Copy ho gaya!'">Copy karo</button></div>
+<div class="meta">
+{{ with .Params.poet }}<a class="tag" href="/poet/{{ . | urlize }}/">&mdash; {{ . }}</a>{{ end }}
+{{ with .Params.category }}<a class="tag" href="/category/{{ . | urlize }}/">#{{ . }}</a>{{ end }}
+{{ with .Params.mood }}<span class="tag">{{ . }}</span>{{ end }}
+</div>
+<h2 style="margin-top:32px;font-size:1.1rem">Aur shayari</h2>
+{{ range first 5 (where (where .Site.RegularPages "Section" "shayari") "Permalink" "ne" .Permalink) }}{{ .Render "summary" }}{{ end }}
+</article>
+{{ end }}

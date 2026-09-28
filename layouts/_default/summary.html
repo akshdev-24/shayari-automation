@@ -1,0 +1,6 @@
+<a class="card" href="{{ .RelPermalink }}">
+<h2>{{ .Title }}</h2>
+<p class="poem">{{ replace ((trim .RawContent "\n\r ") | htmlEscape) "\n" "<br>" | safeHTML }}</p>
+{{ with .Params.poet }}<div class="meta">&mdash; {{ . }}</div>{{ end }}
+<div class="meta">{{ with .Params.category }}#{{ . }}{{ end }} &middot; {{ .Date.Format "02 Jan 2006" }}</div>
+</a>

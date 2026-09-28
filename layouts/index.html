@@ -1,0 +1,5 @@
+{{ define "main" }}
+<h1>Nayi Shayari</h1>
+<p style="color:var(--muted)">{{ .Site.Params.description }}</p>
+{{ range first 50 (where .Site.RegularPages "Section" "shayari") }}{{ .Render "summary" }}{{ else }}<p>Abhi koi shayari nahi hai. Pehli shayari jald aayegi.</p>{{ end }}
+{{ end }}

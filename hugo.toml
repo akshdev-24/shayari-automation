@@ -1,0 +1,10 @@
+baseURL = "/"
+title = "Sayri Hub"
+disableKinds = ["RSS"]
+
+[taxonomies]
+  category = "category"
+  poet = "poet"
+
+[params]
+  description = "Roz nayi original shayari: love, dosti, sad, motivation aur zindagi par."

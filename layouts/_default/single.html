@@ -1,14 +1,21 @@
 {{ define "main" }}
-<article>
+{{ if ne .Section "shayari" }}
 <h1>{{ .Title }}</h1>
-<div class="card"><p class="big" id="poem">{{ replace ((trim .RawContent "\n\r ") | htmlEscape) "\n" "<br>" | safeHTML }}</p>
-<button onclick="navigator.clipboard.writeText(document.getElementById('poem').innerText);this.textContent='Copy ho gaya!'">Copy karo</button></div>
-<div class="meta">
-{{ with .Params.poet }}<a class="tag" href="/poet/{{ . | urlize }}/">&mdash; {{ . }}</a>{{ end }}
-{{ with .Params.category }}<a class="tag" href="/category/{{ . | urlize }}/">#{{ . }}</a>{{ end }}
-{{ with .Params.mood }}<span class="tag">{{ . }}</span>{{ end }}
+<div class="prose">{{ .Content }}</div>
+{{ else }}
+<article class="one">
+<p class="kicker">{{ with .Params.category }}{{ . }}{{ end }}</p>
+<p class="ttl">{{ .Title }}</p>
+<p class="lines" id="poem">{{ replace ((trim .RawContent "\n\r ") | htmlEscape) "\n" "<br>" | safeHTML }}</p>
+{{ with .Params.poet }}<p class="by">&mdash; <a href="/poet/{{ . | urlize }}/"><b>{{ . }}</b></a></p>{{ end }}
+<div class="orn">&#10086;</div>
+<div class="acts">
+<button onclick="navigator.clipboard.writeText(document.getElementById('poem').innerText+'\n{{ .Site.Title }}');this.textContent='Copy ho gaya'">Copy</button>
+<a href="#" onclick="this.href='https://wa.me/?text='+encodeURIComponent(document.getElementById('poem').innerText+'\n'+location.href)" target="_blank" rel="noopener">WhatsApp</a>
 </div>
-<h2 style="margin-top:32px;font-size:1.1rem">Aur shayari</h2>
-{{ range first 5 (where (where .Site.RegularPages "Section" "shayari") "Permalink" "ne" .Permalink) }}{{ .Render "summary" }}{{ end }}
 </article>
+{{ partial "ad.html" . }}
+<h2 class="sec">Aur padho</h2>
+<div class="grid">{{ range first 4 (where (where .Site.RegularPages "Section" "shayari") "Permalink" "ne" .Permalink) }}{{ .Render "summary" }}{{ end }}</div>
+{{ end }}
 {{ end }}

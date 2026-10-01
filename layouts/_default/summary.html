@@ -1,6 +1,5 @@
-<a class="card" href="{{ .RelPermalink }}">
-<h2>{{ .Title }}</h2>
-<p class="poem">{{ replace ((trim .RawContent "\n\r ") | htmlEscape) "\n" "<br>" | safeHTML }}</p>
-{{ with .Params.poet }}<div class="meta">&mdash; {{ . }}</div>{{ end }}
-<div class="meta">{{ with .Params.category }}#{{ . }}{{ end }} &middot; {{ .Date.Format "02 Jan 2006" }}</div>
-</a>
+<article class="sher">
+<p class="ttl">{{ with .Params.category }}{{ . }}{{ end }}</p>
+<a href="{{ .RelPermalink }}"><p class="lines">{{ replace ((trim .RawContent "\n\r ") | htmlEscape) "\n" "<br>" | safeHTML }}</p></a>
+<p class="by">{{ with .Params.poet }}&mdash; <b>{{ . }}</b>{{ else }}{{ .Date.Format "2 Jan 2006" }}{{ end }}</p>
+</article>

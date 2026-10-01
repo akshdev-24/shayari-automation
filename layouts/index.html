@@ -1,5 +1,13 @@
 {{ define "main" }}
-<h1>Nayi Shayari</h1>
-<p style="color:var(--muted)">{{ .Site.Params.description }}</p>
-{{ range first 50 (where .Site.RegularPages "Section" "shayari") }}{{ .Render "summary" }}{{ else }}<p>Abhi koi shayari nahi hai. Pehli shayari jald aayegi.</p>{{ end }}
+{{ $all := where .Site.RegularPages "Section" "shayari" }}
+{{ with index $all 0 }}
+<section class="lead">
+<p class="kicker">Aaj ki shayari</p>
+<p class="lines">{{ replace ((trim .RawContent "\n\r ") | htmlEscape) "\n" "<br>" | safeHTML }}</p>
+<p class="by">{{ with .Params.poet }}&mdash; <b>{{ . }}</b> &nbsp;&middot;&nbsp; {{ end }}<a href="{{ .RelPermalink }}" style="text-decoration:underline">poora padho</a></p>
+</section>
+{{ else }}<p style="padding:60px 0">Pehli shayari jald aayegi.</p>{{ end }}
+{{ partial "ad.html" . }}
+<h2 class="sec">Aur shayari</h2>
+<div class="grid">{{ range $i, $p := after 1 (first 41 $all) }}{{ $p.Render "summary" }}{{ end }}</div>
 {{ end }}

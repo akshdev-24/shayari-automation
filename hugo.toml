@@ -8,3 +8,7 @@ disableKinds = ["RSS"]
 
 [params]
   description = "Roz nayi original shayari: love, dosti, sad, motivation aur zindagi par."
+
+  # AdSense approve hone ke baad yahan apna ID daalo, jaise "ca-pub-1234567890123456"
+  adsense = ""
+  adslot = ""

@@ -3,43 +3,65 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ if .IsHome }}{{ .Site.Title }} - Roz Nayi Shayari{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+<title>{{ if .IsHome }}{{ .Site.Title }} | Roz Ek Nayi Shayari{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 <meta name="description" content="{{ if .IsPage }}{{ .Plain | truncate 150 }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Karla:wght@400;600&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+{{ with .Site.Params.adsense }}<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ . }}" crossorigin="anonymous"></script>{{ end }}
 <style>
-:root{--bg:#fbf7f2;--card:#fff;--text:#2b2118;--muted:#8a7a6a;--accent:#b5462b;--line:#eadfd2}
-@media(prefers-color-scheme:dark){:root{--bg:#17130f;--card:#221c16;--text:#f1e8dc;--muted:#a3937f;--accent:#e2805f;--line:#372e25}}
+:root{--ink:#0A3323;--mute:#3f5b4b;--seal:#105666;--glass:rgba(255,255,255,.45);--glass2:rgba(255,255,255,.66);--edge:rgba(255,255,255,.75);--shadow:0 8px 32px rgba(10,51,35,.16);
+--base:#F7F4D5;--o1:rgba(211,150,140,.8);--o2:rgba(131,153,88,.65);--o3:rgba(16,86,102,.32)}
+@media(prefers-color-scheme:dark){:root{--ink:#F7F4D5;--mute:#b8c49c;--seal:#D3968C;--glass:rgba(247,244,213,.08);--glass2:rgba(247,244,213,.15);--edge:rgba(247,244,213,.2);--shadow:0 8px 32px rgba(0,0,0,.4);
+--base:#0A3323;--o1:rgba(16,86,102,.9);--o2:rgba(131,153,88,.35);--o3:rgba(211,150,140,.3)}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Georgia,"Noto Serif Devanagari",serif;line-height:1.7}
+body{margin:0;color:var(--ink);background:var(--base);font:17px/1.65 Karla,system-ui,sans-serif;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:
+radial-gradient(38vw 38vw at 12% 8%,var(--o1),transparent 70%),
+radial-gradient(42vw 42vw at 92% 22%,var(--o2),transparent 70%),
+radial-gradient(40vw 40vw at 30% 95%,var(--o3),transparent 70%)}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:720px;margin:0 auto;padding:0 18px}
-header{border-bottom:1px solid var(--line);padding:18px 0}
-header .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.logo{font-size:1.4rem;font-weight:bold;color:var(--accent)}
-nav a{margin-left:14px;color:var(--muted);font-size:.95rem}
-nav a:hover{color:var(--accent)}
-h1{font-size:1.6rem;margin:28px 0 8px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0;display:block}
-.card:hover{border-color:var(--accent)}
-.card h2{font-size:1.05rem;margin:0 0 8px;color:var(--accent)}
-.poem{font-size:1.15rem;margin:0}
-.meta{color:var(--muted);font-size:.85rem;margin-top:10px}
-.tag{display:inline-block;background:var(--line);border-radius:20px;padding:2px 12px;font-size:.85rem;margin:3px 4px 3px 0}
-.big{font-size:1.4rem;line-height:2;padding:10px 0}
-button{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:8px 16px;font-size:.95rem;cursor:pointer;margin-top:8px}
-footer{border-top:1px solid var(--line);color:var(--muted);text-align:center;padding:24px 0;margin-top:40px;font-size:.9rem}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+.glass,.sher,.lead,.one,.ad,.prose,footer .wrap{background:var(--glass);border:1px solid var(--edge);border-radius:22px;box-shadow:var(--shadow);-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.glass,.sher,.lead,.one,.ad,.prose,footer .wrap,.mast{background:var(--glass2)}}
+.mast{position:sticky;top:0;z-index:10;padding:12px 0;background:var(--glass);border-bottom:1px solid var(--edge);-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%)}
+.mast .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px 24px}
+.brand{font:italic 600 2rem/1 "Cormorant Garamond","Tiro Devanagari Hindi",Georgia,serif}
+.brand i{color:var(--seal);font-style:normal}
+nav{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
+nav a{margin-left:16px;color:var(--mute)}nav a:hover{color:var(--seal)}
+.kicker{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--seal);margin:0 0 10px}
+.lead{margin:34px 0 22px;padding:48px 34px}
+.lead .lines{font:italic 500 clamp(1.7rem,4.6vw,2.6rem)/1.4 "Cormorant Garamond","Tiro Devanagari Hindi",Georgia,serif;margin:0 0 18px}
+.by{font-size:.9rem;color:var(--mute);margin:0}.by b{color:var(--ink);font-weight:600}
+.sec{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin:30px 4px 14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.sher{padding:24px 26px;transition:transform .2s,background .2s}
+.sher:hover{transform:translateY(-3px);background:var(--glass2)}
+.sher .lines{font:italic 500 1.3rem/1.5 "Cormorant Garamond","Tiro Devanagari Hindi",Georgia,serif;margin:6px 0 12px}
+.ttl{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin:0}
+h1{font:italic 600 2.2rem/1.2 "Cormorant Garamond",Georgia,serif;margin:36px 4px 18px}
+.chips a{display:inline-block;margin:0 10px 10px 0;padding:6px 16px;font-size:.85rem;color:var(--ink);background:var(--glass);border:1px solid var(--edge);border-radius:99px;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.chips a:hover{color:var(--seal)}
+.one{margin:34px 0 22px;padding:56px 26px;text-align:center}
+.one .lines{font:italic 500 clamp(1.8rem,5vw,2.9rem)/1.55 "Cormorant Garamond","Tiro Devanagari Hindi",Georgia,serif;margin:18px auto 22px;max-width:640px}
+.orn{color:var(--seal);margin:22px 0}
+.acts button,.acts a{font:600 .76rem Karla,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:var(--glass2);border:1px solid var(--edge);border-radius:99px;padding:10px 20px;margin:4px;cursor:pointer;display:inline-block;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.acts button:hover,.acts a:hover{color:var(--seal)}
+.prose{max-width:660px;padding:8px 30px 22px;margin-bottom:20px}.prose h2{font:italic 600 1.5rem "Cormorant Garamond",Georgia,serif;margin-top:28px}
+.ad{margin:22px 0;min-height:90px;padding:8px}
+footer{margin-top:50px;padding:0 0 40px;color:var(--mute);font-size:.85rem}
+footer .wrap{padding:22px 26px;max-width:880px}
+footer a{margin-right:18px;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:680px){.grid{grid-template-columns:1fr}.brand{font-size:1.7rem}nav a{margin:0 12px 0 0}.lead{padding:34px 22px}}
+@media(prefers-reduced-motion:reduce){.sher{transition:none}}
 </style>
 </head>
 <body>
-<header><div class="wrap">
-<a class="logo" href="/">{{ .Site.Title }}</a>
-<nav>
-{{ range .Site.Taxonomies.category.Alphabetical }}<a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>{{ end }}
-<a href="/poet/">Shayar</a>
-</nav>
+<header class="mast"><div class="wrap">
+<a class="brand" href="/">Sayri <i>&#10086;</i> Hub</a>
+<nav>{{ range .Site.Taxonomies.category.Alphabetical }}<a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>{{ end }}<a href="/poet/">Shayar</a></nav>
 </div></header>
-<main class="wrap">
-{{ block "main" . }}{{ end }}
-</main>
-<footer>&copy; {{ now.Year }} {{ .Site.Title }}</footer>
+<main class="wrap">{{ block "main" . }}{{ end }}</main>
+<footer><div class="wrap"><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy Policy</a><a href="/disclaimer/">Disclaimer</a><br><br>&copy; {{ now.Year }} {{ .Site.Title }}</div></footer>
 </body>
 </html>
